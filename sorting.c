@@ -1,5 +1,5 @@
 #include "sorting.h"
-#include "timer.h"
+#include "benchmark.h"
 #include <stdlib.h>
 #define _CRT_SECURE_NO_WARNINGS
 
@@ -62,7 +62,7 @@ void Merge_sort(int array[], int left, int right) {
 		array[left + step] = tmp[step];
 }
 
-int compare_number(const void* first, const void* second)
+int Compare_number(const void* first, const void* second)
 {
 	int x = *((int*)first),
 		y = *((int*)second);
@@ -88,7 +88,7 @@ void Bucket_sort(int array[], int N) {
 	}
 
 	for (k = 0, i = 0; i < 3; i++) {
-		qsort(buckets[i].value, buckets[i].count, sizeof(int), &compare_number);
+		qsort(buckets[i].value, buckets[i].count, sizeof(int), &Compare_number);
 		for (j = 0; j < buckets[i].count; j++)
 			array[k + j] = buckets[i].value[j];
 
