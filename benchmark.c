@@ -3,7 +3,7 @@
 #include <Windows.h>
 #include "benchmark.h"
 
-#define N 9999
+#define SIZE_ARR 9999
 
 TIMER clockk;
 
@@ -79,31 +79,31 @@ void Benchmark(int choice, int* array, int data) {
 	switch (choice) {
 	case 0:
 		clockk.start = clock();
-		Selection_sort(N, array, clockk);
+		SelectionSort(SIZE_ARR, array, clockk);
 		clockk.finish = clock();
 		break;
 
 	case 1:
 		clockk.start = clock();
-		Insertion_sort(N, array);
+		InsertionSort(SIZE_ARR, array);
 		clockk.finish = clock();
 		break;
 
 	case 2:
 		clockk.start = clock();
-		Bubble_sort(N, array);
+		BubbleSort(SIZE_ARR, array);
 		clockk.finish = clock();
 		break;
 
 	case 3:
 		clockk.start = clock();
-		Merge_sort(array, 0, N - 1);
+		MergeSort(array, 0, SIZE_ARR - 1);
 		clockk.finish = clock();
 		break;
 
 	case 4:
 		clockk.start = clock();
-		Bucket_sort(array, N);
+		BucketSort(array, SIZE_ARR);
 		clockk.finish = clock();
 		break;
 
@@ -111,7 +111,7 @@ void Benchmark(int choice, int* array, int data) {
 		break;
 	}
 
-	Sleep(700);
+	Sleep(600);
 	if (data == 0) PrintTimeData1(&clockk, choice);
 	if (data == 1) PrintTimeData2(&clockk, choice);
 	if (data == 2) PrintTimeData3(&clockk, choice);

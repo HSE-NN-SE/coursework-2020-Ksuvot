@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #define _CRT_SECURE_NO_WARNINGS
 
-void Selection_sort(int N, int array[]) {
+void SelectionSort(int N, int array[]) {
 	for (int i = 0; i < N; i++) {
 		int min = i;
 		for (int j = i + 1; j < N; j++)
@@ -15,7 +15,7 @@ void Selection_sort(int N, int array[]) {
 	}
 }
 
-void Insertion_sort(int N, int array[]) {
+void InsertionSort(int N, int array[]) {
 	for (int i = 1; i < N; i++) {
 		int x = array[i];
 		int j = i - 1;
@@ -27,7 +27,7 @@ void Insertion_sort(int N, int array[]) {
 	}
 }
 
-void Bubble_sort(int N, int array[]) {
+void BubbleSort(int N, int array[]) {
 	for (int i = 0; i < N - 1; i++) {
 		for (int j = 0; j < N - i - 1; j++)
 			if (array[j] > array[j + 1]) {
@@ -38,12 +38,12 @@ void Bubble_sort(int N, int array[]) {
 	}
 }
 
-void Merge_sort(int array[], int left, int right) {
+void MergeSort(int array[], int left, int right) {
 	if (left == right) return;
 
 	int mid = (left + right) / 2;
-	Merge_sort(array, left, mid);
-	Merge_sort(array, mid + 1, right);
+	MergeSort(array, left, mid);
+	MergeSort(array, mid + 1, right);
 
 	int i = left;
 	int j = mid + 1;
@@ -62,7 +62,7 @@ void Merge_sort(int array[], int left, int right) {
 		array[left + step] = tmp[step];
 }
 
-int Compare_number(const void* first, const void* second)
+int CompareNumber(const void* first, const void* second)
 {
 	int x = *((int*)first),
 		y = *((int*)second);
@@ -72,7 +72,7 @@ int Compare_number(const void* first, const void* second)
 	else return 1;
 }
 
-void Bucket_sort(int array[], int N) {
+void BucketSort(int array[], int N) {
 
 	BUCKET buckets[3];
 	int i, j, k;
@@ -88,7 +88,7 @@ void Bucket_sort(int array[], int N) {
 	}
 
 	for (k = 0, i = 0; i < 3; i++) {
-		qsort(buckets[i].value, buckets[i].count, sizeof(int), &Compare_number);
+		qsort(buckets[i].value, buckets[i].count, sizeof(int), &CompareNumber);
 		for (j = 0; j < buckets[i].count; j++)
 			array[k + j] = buckets[i].value[j];
 

@@ -17,4 +17,4 @@ void PrintTimeData3(const TIMER* t, int sort);
 
 void Benchmark(int choice, int* array, int data);
 
-#endif
+#endif //!BENCHMARK_H
