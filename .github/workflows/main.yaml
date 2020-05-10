@@ -17,8 +17,8 @@ jobs:
       run: gcc *.c -o main
     - name: Copy tests data
       run: |
-      cp ./"Test files"/test1.md ./test1.txt
-      cp ./"Test files"/test2.md ./test2.txt
-      cp ./"Test files"/test3.md ./test3.txt
+        cp ./"Test files"/test1.md ./test1.txt
+        cp ./"Test files"/test2.md ./test2.txt
+        cp ./"Test files"/test3.md ./test3.txt
     - name: RUN
       run: ./main
