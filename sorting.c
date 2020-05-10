@@ -1,7 +1,6 @@
 #include "sorting.h"
 #include "benchmark.h"
 #include <stdlib.h>
-#define _CRT_SECURE_NO_WARNINGS
 
 void SelectionSort(int N, int array[]) {
 	for (int i = 0; i < N; i++) {

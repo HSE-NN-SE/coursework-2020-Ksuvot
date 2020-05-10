@@ -1,83 +1,34 @@
 #include <stdio.h>
 #include <time.h>
-#include <Windows.h>
 #include "benchmark.h"
-
-#define SIZE_ARR_TEST_1 9999
-#define SIZE_ARR_TEST_2 1000
-#define SIZE_ARR_TEST_3 2000
 
 TIMER clockk;
 
 void PrintTable() {
-	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-	SetConsoleTextAttribute(hConsole, (WORD)((0 << 4) | 8));
-
-	printf("                                    ");
-	printf("Time on\n");
+	printf("\t\t\t\t\t\x1B[1mTime on\n");
 	printf("Sort Name");
-	printf("              ");
-	printf("Data 1");
-	printf("        ");
-	printf("Data 2");
-	printf("        ");
-	printf("Data 3");
-	printf("\n---------------------------------------------------------\n");
-
-	SetConsoleTextAttribute(hConsole, (WORD)((0 << 4) | 15));
+	printf("\t\tData 1");
+	printf("\t\tData 2");
+	printf("\t\tData 3");
+	printf("\n--------------------------------------------------------------\n\033[0m");
 }
 
 void PrintNameSort(int name) {
-	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-	SetConsoleTextAttribute(hConsole, (WORD)((0 << 4) | 2));
-
-	char* name_sort[5] = { "Selection sort", "Insertion sort", "Bubble sort", "Merge sort", "Bucket sort" };
-	printf(name_sort[name]);
-
-	SetConsoleTextAttribute(hConsole, (WORD)((0 << 4) | 15));
+	char* name_sort[5] = { "Selection sort", "Insertion sort", "Bubble sort   ", "Merge sort    ", "Bucket sort " };
+	printf("\x1B[32;1m%s\033[0m", name_sort[name]);
 }
 
-void PrintTimeData1(const TIMER* t, int sort) {
-	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-	SetConsoleTextAttribute(hConsole, (WORD)((0 << 4) | 6));
-
-	char* name_sort[5] = { "         ", "         ", "            ", "             ", "             " };
-	float array = t->finish - t->start;
+void PrintTimeData(const TIMER* t, int sort, int data) {
+	char* name_sort[5] = { "\t\t", "\t\t", "\t\t", "\t\t", "\t\t" };
+	double array = t->finish - t->start;
 	printf(name_sort[sort]);
-	printf("%.0f ", (array / CLOCKS_PER_SEC) * 1000);
-	printf("ms");
-
-	SetConsoleTextAttribute(hConsole, (WORD)((0 << 4) | 15));
-}
-
-void PrintTimeData2(const TIMER* t, int sort) {
-	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-	SetConsoleTextAttribute(hConsole, (WORD)((0 << 4) | 5));
-
-	char* name_sort[5] = { "         ", "         ", "         ", "         ", "         " };
-	float array = t->finish - t->start;
-	printf(name_sort[sort]);
-	printf("%.0f ", (array / CLOCKS_PER_SEC) * 1000);
-	printf("ms");
-
-	SetConsoleTextAttribute(hConsole, (WORD)((0 << 4) | 15));
-}
-
-void PrintTimeData3(const TIMER* t, int sort) {
-	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-	SetConsoleTextAttribute(hConsole, (WORD)((0 << 4) | 9));
-
-	char* name_sort[5] = { "          ", "          ", "          ", "          ", "          " };
-	float array = t->finish - t->start;
-	printf(name_sort[sort]);
-	printf("%.0f ", (array / CLOCKS_PER_SEC) * 1000);
-	printf("ms");
-
-	SetConsoleTextAttribute(hConsole, (WORD)((0 << 4) | 15));
+	if (data == 1) printf("\x1B[33m%.0f ", (array / CLOCKS_PER_SEC) * 1000);
+	if (data == 2) printf("\x1B[35m%.0f ", (array / CLOCKS_PER_SEC) * 1000);
+	if (data == 3) printf("\x1B[34;1m%.0f ", (array / CLOCKS_PER_SEC) * 1000);
+	printf("ms\033[0m");
 }
 
 void Benchmark(int choice, int* array, int data, int size_arr) {
-
 	switch (choice) {
 	case 0:
 		clockk.start = clock();
@@ -112,9 +63,5 @@ void Benchmark(int choice, int* array, int data, int size_arr) {
 	default:
 		break;
 	}
-
-	Sleep(600);
-	if (data == 1) PrintTimeData1(&clockk, choice);
-	if (data == 2) PrintTimeData2(&clockk, choice);
-	if (data == 3) PrintTimeData3(&clockk, choice);
+	PrintTimeData(&clockk, choice, data);
 }

@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <Windows.h>
 #include "sorting.h"
 #include "benchmark.h"
 
@@ -36,21 +35,21 @@ void CreateArray(FILE* test, int* const_array) {
 }
 
 int main() {
-
-	int const_array_test_1[SIZE_ARR_TEST_1] = { 0 };
-	int const_array_test_2[SIZE_ARR_TEST_2] = { 0 };
-	int const_array_test_3[SIZE_ARR_TEST_3] = { 0 };
-	int array_test_1[SIZE_ARR_TEST_1] = { 0 };
-	int array_test_2[SIZE_ARR_TEST_2] = { 0 };
-	int array_test_3[SIZE_ARR_TEST_3] = { 0 };
 	
 	FILE* test_1 = fopen("test1.txt", "r");
 	FILE* test_2 = fopen("test2.txt", "r");
 	FILE* test_3 = fopen("test3.txt", "r");
 	if ((test_1 == NULL) || (test_2 == NULL) || (test_3 == NULL)) {
-		printf("WRONG!");
+		printf("\x1B[31mWRONG!\033[0m");
 		return -1;
 	}
+
+	int *const_array_test_1 = (int*)malloc(SIZE_ARR_TEST_1 * sizeof(int));
+	int *array_test_1 = (int*)malloc(SIZE_ARR_TEST_1 * sizeof(int));
+	int *const_array_test_2 = (int*)malloc(SIZE_ARR_TEST_2 * sizeof(int));
+	int *array_test_2 = (int*)malloc(SIZE_ARR_TEST_2 * sizeof(int));
+	int *const_array_test_3 = (int*)malloc(SIZE_ARR_TEST_3 * sizeof(int));
+	int *array_test_3 = (int*)malloc(SIZE_ARR_TEST_3 * sizeof(int));
 
 	CreateArray(test_1, const_array_test_1);
 	for (int i = 0; i < SIZE_ARR_TEST_1; i++)
@@ -66,7 +65,6 @@ int main() {
 
 	PrintTable(); 
 	for (int i = 0; i < 5; i++) {
-		Sleep(600);
 		PrintNameSort(i);
 		Benchmark(i, array_test_1, 1, SIZE_ARR_TEST_1);
 		Benchmark(i, array_test_2, 2, SIZE_ARR_TEST_2);
@@ -79,6 +77,13 @@ int main() {
 			array_test_3[i] = const_array_test_3[i];
 		printf("\n");
 	}
+
+	free(array_test_1);
+	free(const_array_test_1);
+	free(array_test_2);
+	free(const_array_test_2);
+	free(array_test_3);
+	free(const_array_test_3);
 
 	return 0;
 }
