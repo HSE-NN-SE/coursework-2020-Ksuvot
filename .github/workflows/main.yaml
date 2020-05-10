@@ -1,0 +1,24 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build
+      run: gcc *.c -o main
+    - name: Copy tests data
+      run: |
+      cp ./"Test files"/test1.md ./test1.txt
+      cp ./"Test files"/test2.md ./test2.txt
+      cp ./"Test files"/test3.md ./test3.txt
+    - name: RUN
+      run: ./main
