@@ -1,34 +1,84 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <Windows.h>
 #include "sorting.h"
 #include "benchmark.h"
 
-#define SIZE 9999
+#define SIZE_ARR_TEST_1 9999
+#define SIZE_ARR_TEST_2 1000
+#define SIZE_ARR_TEST_3 2000
+
+void CreateArray(FILE* test, int* const_array) {
+	short int num[3] = { 0 };
+	short int in_arr = 0, in_num = 0;
+	num[0] = num[1] = num[2] = -1;
+	while (!feof(test)) {
+		char x = fgetc(test);
+		if ((int)x != 32) {
+			num[in_num] = (int)x - 48;
+			++in_num;
+		}
+		else {
+			int zero = 1;
+			for (int i = 2; i > -1; i--) {
+				if (num[i] != -1) {
+					const_array[in_arr] += zero * num[i];
+					zero *= 10;
+				}
+			}
+			++in_arr;
+			in_num = 0;
+			num[0] = num[1] = num[2] = -1;
+		}
+	}
+	fclose(test);
+}
 
 int main() {
 
-	int array[SIZE] = { 0 }; // массив который сортируется
-	int ARR[SIZE] = { 0 }; // константный массив
-
-	srand(time(0)); // генерируются данные в диапазоне от 0 до 1000
-	for (int i = 0; i < SIZE; i++) {
-		array[i] = rand() % 1001 + 0;
-		ARR[i] = array[i];
+	int const_array_test_1[SIZE_ARR_TEST_1] = { 0 };
+	int const_array_test_2[SIZE_ARR_TEST_2] = { 0 };
+	int const_array_test_3[SIZE_ARR_TEST_3] = { 0 };
+	int array_test_1[SIZE_ARR_TEST_1] = { 0 };
+	int array_test_2[SIZE_ARR_TEST_2] = { 0 };
+	int array_test_3[SIZE_ARR_TEST_3] = { 0 };
+	
+	FILE* test_1 = fopen("test1.txt", "r");
+	FILE* test_2 = fopen("test2.txt", "r");
+	FILE* test_3 = fopen("test3.txt", "r");
+	if ((test_1 == NULL) || (test_2 == NULL) || (test_3 == NULL)) {
+		printf("WRONG!");
+		return -1;
 	}
+
+	CreateArray(test_1, const_array_test_1);
+	for (int i = 0; i < SIZE_ARR_TEST_1; i++)
+		array_test_1[i] = const_array_test_1[i];
+
+	CreateArray(test_2, const_array_test_2);
+	for (int i = 0; i < SIZE_ARR_TEST_2; i++)
+		array_test_2[i] = const_array_test_2[i];
+
+	CreateArray(test_3, const_array_test_3);
+	for (int i = 0; i < SIZE_ARR_TEST_3; i++)
+		array_test_3[i] = const_array_test_3[i];
 
 	PrintTable(); 
-
 	for (int i = 0; i < 5; i++) {
-		Sleep(700);
+		Sleep(600);
 		PrintNameSort(i);
-		for (int j = 0; j < 3; j++) {
-			Benchmark(i, array, j);
-
-			for (int k = 0; k < SIZE; k++) // записываем не отсортированный массив
-				array[k] = ARR[k];
-		}
+		Benchmark(i, array_test_1, 1, SIZE_ARR_TEST_1);
+		Benchmark(i, array_test_2, 2, SIZE_ARR_TEST_2);
+		Benchmark(i, array_test_3, 3, SIZE_ARR_TEST_3);
+		for (int i = 0; i < SIZE_ARR_TEST_1; i++)
+			array_test_1[i] = const_array_test_1[i];
+		for (int i = 0; i < SIZE_ARR_TEST_2; i++)
+			array_test_2[i] = const_array_test_2[i];
+		for (int i = 0; i < SIZE_ARR_TEST_3; i++)
+			array_test_3[i] = const_array_test_3[i];
 		printf("\n");
 	}
+
 	return 0;
 }

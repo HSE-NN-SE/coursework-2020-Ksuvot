@@ -6,11 +6,11 @@ typedef struct bucket {
 	int* value;
 }BUCKET;
 
-void Selection_sort(int N, int array[]);
-void Insertion_sort(int N, int array[]);
-void Bubble_sort(int N, int array[]);
-void Merge_sort(int array[], int left, int right);
-int Compare_number(const void* first, const void* second);
-void Bucket_sort(int array[], int N);
+void SelectionSort(int N, int array[]);
+void InsertionSort(int N, int array[]);
+void BubbleSort(int N, int array[]);
+void MergeSort(int array[], int left, int right);
+int CompareNumber(const void* first, const void* second);
+void BucketSort(int array[], int N);
 
-#endif
+#endif //!SORTING_H

@@ -3,7 +3,9 @@
 #include <Windows.h>
 #include "benchmark.h"
 
-#define N 9999
+#define SIZE_ARR_TEST_1 9999
+#define SIZE_ARR_TEST_2 1000
+#define SIZE_ARR_TEST_3 2000
 
 TIMER clockk;
 
@@ -52,7 +54,7 @@ void PrintTimeData2(const TIMER* t, int sort) {
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(hConsole, (WORD)((0 << 4) | 5));
 
-	char* name_sort[5] = { "        ", "         ", "        ", "        ", "          " };
+	char* name_sort[5] = { "         ", "         ", "         ", "         ", "         " };
 	float array = t->finish - t->start;
 	printf(name_sort[sort]);
 	printf("%.0f ", (array / CLOCKS_PER_SEC) * 1000);
@@ -65,7 +67,7 @@ void PrintTimeData3(const TIMER* t, int sort) {
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(hConsole, (WORD)((0 << 4) | 9));
 
-	char* name_sort[5] = { "        ", "         ", "        ", "        ", "          " };
+	char* name_sort[5] = { "          ", "          ", "          ", "          ", "          " };
 	float array = t->finish - t->start;
 	printf(name_sort[sort]);
 	printf("%.0f ", (array / CLOCKS_PER_SEC) * 1000);
@@ -74,36 +76,36 @@ void PrintTimeData3(const TIMER* t, int sort) {
 	SetConsoleTextAttribute(hConsole, (WORD)((0 << 4) | 15));
 }
 
-void Benchmark(int choice, int* array, int data) {
+void Benchmark(int choice, int* array, int data, int size_arr) {
 
 	switch (choice) {
 	case 0:
 		clockk.start = clock();
-		Selection_sort(N, array, clockk);
+		SelectionSort(size_arr, array, clockk);
 		clockk.finish = clock();
 		break;
 
 	case 1:
 		clockk.start = clock();
-		Insertion_sort(N, array);
+		InsertionSort(size_arr, array);
 		clockk.finish = clock();
 		break;
 
 	case 2:
 		clockk.start = clock();
-		Bubble_sort(N, array);
+		BubbleSort(size_arr, array);
 		clockk.finish = clock();
 		break;
 
 	case 3:
 		clockk.start = clock();
-		Merge_sort(array, 0, N - 1);
+		MergeSort(array, 0, size_arr - 1);
 		clockk.finish = clock();
 		break;
 
 	case 4:
 		clockk.start = clock();
-		Bucket_sort(array, N);
+		BucketSort(array, size_arr);
 		clockk.finish = clock();
 		break;
 
@@ -111,8 +113,8 @@ void Benchmark(int choice, int* array, int data) {
 		break;
 	}
 
-	Sleep(700);
-	if (data == 0) PrintTimeData1(&clockk, choice);
-	if (data == 1) PrintTimeData2(&clockk, choice);
-	if (data == 2) PrintTimeData3(&clockk, choice);
+	Sleep(600);
+	if (data == 1) PrintTimeData1(&clockk, choice);
+	if (data == 2) PrintTimeData2(&clockk, choice);
+	if (data == 3) PrintTimeData3(&clockk, choice);
 }
