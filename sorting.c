@@ -1,7 +1,6 @@
 #include "sorting.h"
 #include "benchmark.h"
 #include <stdlib.h>
-#define _CRT_SECURE_NO_WARNINGS
 
 void SelectionSort(int N, int array[]) {
 	for (int i = 0; i < N; i++) {
@@ -38,32 +37,58 @@ void BubbleSort(int N, int array[]) {
 	}
 }
 
-void MergeSort(int array[], int left, int right) {
-	if (left == right) return;
+void Merge(int array[], int left, int mid, int right) {
+	int size_left = mid - left + 1;
+	int size_right = right - mid;
 
-	int mid = (left + right) / 2;
-	MergeSort(array, left, mid);
-	MergeSort(array, mid + 1, right);
+	int* array_left = (int*)malloc(size_left * sizeof(int));
+	for (int i = 0; i < size_left; i++)
+		array_left[i] = array[left + i];
 
-	int i = left;
-	int j = mid + 1;
-	int* tmp = (int*)malloc(right * sizeof(int));
-	for (int step = 0; step < right - left + 1; step++) {
-		if ((j > right) || ((i <= mid) && (array[i] < array[j]))) {
-			tmp[step] = array[i];
+	int* array_right = (int*)malloc(size_right * sizeof(int));
+	for (int i = 0; i < size_right; i++)
+		array_right[i] = array[mid + 1 + i];
+
+	int i = 0, j = 0;
+	int k = left;
+	while (i < size_left && j < size_right) {
+		if (array_left[i] <= array_right[j]) {
+			array[k] = array_left[i];
 			i++;
 		}
 		else {
-			tmp[step] = array[j];
+			array[k] = array_right[j];
 			j++;
 		}
+		k++;
 	}
-	for (int step = 0; step < right - left + 1; step++)
-		array[left + step] = tmp[step];
+
+	while (i < size_left) {
+		array[k] = array_left[i];
+		i++;
+		k++;
+	}
+
+	while (j < size_right) {
+		array[k] = array_right[j];
+		j++;
+		k++;
+	}
+
+	free(array_right);
+	free(array_left);
 }
 
-int CompareNumber(const void* first, const void* second)
-{
+void MergeSort(int array[], int left, int right) {
+	if (left < right) {
+		int mid = left + (right - left) / 2;
+		MergeSort(array, left, mid);
+		MergeSort(array, mid + 1, right);
+		Merge(array, left, mid, right);
+	}
+}
+
+int CompareNumber(const void* first, const void* second) {
 	int x = *((int*)first),
 		y = *((int*)second);
 
