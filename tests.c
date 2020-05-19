@@ -25,19 +25,19 @@ void MiniSortTests(int* array, int size) {
 void SwapSortTests(int* array, int size) {
 	for (int i = 0; i < size; i++)
 		array[i] = i;
-	int i = 0;
-	while (i < size - 1) {
-		int swap = array[i];
-		array[i] = array[i + 1];
-		array[i + 1] = swap;
-		i += 50;
+	for (int i = 0; i < 10; i++) {
+		int j = rand() % size;
+		int k = rand() % size;
+		int swap = array[j];
+		array[j] = array[k];
+		array[k] = swap;
 	}
 }
 
 void RepeatSortTests(int* array, int size) {
 	for (int i = 0; i < size; i++)
-		array[i] = i;
-	for (int i = 0; i < 10; i++) {
+		array[i] = rand() % size + 1;
+	for (int i = 0; i < 5; i++) {
 		int x = rand() % (size - 500) + 1;
 		int repeat = array[x];
 		for (int j = x + 1; j < x + 99; j++)
