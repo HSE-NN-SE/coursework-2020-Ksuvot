@@ -10,7 +10,7 @@ void SelectionSort(int N, int array[]);
 void InsertionSort(int N, int array[]);
 void BubbleSort(int N, int array[]);
 void MergeSort(int array[], int left, int right);
-int CompareNumber(const void* first, const void* second);
 void BucketSort(int array[], int N);
+void QuickSort(int array[], int first, int last);
 
 #endif //!SORTING_H
