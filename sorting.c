@@ -1,10 +1,10 @@
 #include <stdlib.h>
 #include "sorting.h"
 
-void SelectionSort(int N, int array[]) {
-	for (int i = 0; i < N; i++) {
+void SelectionSort(int size, int* array) {
+	for (int i = 0; i < size; i++) {
 		int min = i;
-		for (int j = i + 1; j < N; j++)
+		for (int j = i + 1; j < size; j++)
 			if (array[min] > array[j])
 				min = j;
 		int x = array[min];
@@ -13,8 +13,8 @@ void SelectionSort(int N, int array[]) {
 	}
 }
 
-void InsertionSort(int N, int array[]) {
-	for (int i = 1; i < N; i++) {
+void InsertionSort(int size, int* array) {
+	for (int i = 1; i < size; i++) {
 		int x = array[i];
 		int j = i - 1;
 		while ((j >= 0) && (x < array[j])) {
@@ -25,9 +25,9 @@ void InsertionSort(int N, int array[]) {
 	}
 }
 
-void BubbleSort(int N, int array[]) {
-	for (int i = 0; i < N - 1; i++) {
-		for (int j = 0; j < N - i - 1; j++)
+void BubbleSort(int size, int* array) {
+	for (int i = 0; i < size - 1; i++) {
+		for (int j = 0; j < size - i - 1; j++)
 			if (array[j] > array[j + 1]) {
 				int x = array[j];
 				array[j] = array[j + 1];
@@ -36,18 +36,15 @@ void BubbleSort(int N, int array[]) {
 	}
 }
 
-void Merge(int array[], int left, int mid, int right) {
+void Merge(int* array, int left, int mid, int right) {
 	int size_left = mid - left + 1;
 	int size_right = right - mid;
-
 	int* array_left = (int*)malloc(size_left * sizeof(int));
 	for (int i = 0; i < size_left; i++)
 		array_left[i] = array[left + i];
-
 	int* array_right = (int*)malloc(size_right * sizeof(int));
 	for (int i = 0; i < size_right; i++)
 		array_right[i] = array[mid + 1 + i];
-
 	int i = 0, j = 0;
 	int k = left;
 	while (i < size_left && j < size_right) {
@@ -61,24 +58,21 @@ void Merge(int array[], int left, int mid, int right) {
 		}
 		k++;
 	}
-
 	while (i < size_left) {
 		array[k] = array_left[i];
 		i++;
 		k++;
 	}
-
 	while (j < size_right) {
 		array[k] = array_right[j];
 		j++;
 		k++;
 	}
-
 	free(array_right);
 	free(array_left);
 }
 
-void MergeSort(int array[], int left, int right) {
+void MergeSort(int* array, int left, int right) {
 	if (left < right) {
 		int mid = left + (right - left) / 2;
 		MergeSort(array, left, mid);
@@ -96,16 +90,16 @@ int CompareNumber(const void* first, const void* second) {
 	else return 1;
 }
 
-void BucketSort(int array[], int N) {
+void BucketSort(int* array, int size) {
 
 	BUCKET buckets[3];
 	int i, j, k;
 	for (i = 0; i < 3; i++) {
 		buckets[i].count = 0;
-		buckets[i].value = (int*)malloc(sizeof(int) * N);
+		buckets[i].value = (int*)malloc(sizeof(int) * size);
 	}
 
-	for (i = 0; i < N; i++) {
+	for (i = 0; i < size; i++) {
 		if (array[i] < 301) buckets[0].value[buckets[0].count++] = array[i];
 		else if (array[i] > 600) buckets[2].value[buckets[2].count++] = array[i];
 		else buckets[1].value[buckets[1].count++] = array[i];
@@ -121,7 +115,7 @@ void BucketSort(int array[], int N) {
 	}
 }
 
-void QuickSort(int array[], int first, int last) {
+void QuickSort(int* array, int first, int last) {
 	if (first < last) {
 		int left = first, right = last;
 		int pivot = array[(left + right) / 2];

@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "sorting.h"
 #include "benchmark.h"
 #include "tests.h"
 
@@ -28,15 +27,14 @@ int main() {
 		}
 		RandomSortTests(array, size);
 		Benchmark(i, array, test1, size);	//	1
-		MiniSortTests(array, size);
+		PartSortTests(array, size);
 		Benchmark(i, array, test2, size);	//	2
 		SwapSortTests(array, size);
 		Benchmark(i, array, test3, size);	//	3
-		RepeatSortTests(array, size);
+		RandInsertSortTests(array, size);
 		Benchmark(i, array, test4, size);	//	4
 		printf("\n");
 		free(array);
 	}
-	getchar();
 	return 0;
 }

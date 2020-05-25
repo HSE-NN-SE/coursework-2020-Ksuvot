@@ -26,15 +26,15 @@ void PrintNameSort(int sort_name) {
 }
 
 void PrintTimeData(const TIMER* t, int sort, int data) {
-	double array = t->finish - t->start;
-	double time = (array / CLOCKS_PER_SEC) * 1000;
-	if (data == 1) printf("\x1B[33m%.0f ", (array / CLOCKS_PER_SEC) * 1000);
-	if (data == 2) printf("\x1B[35m%.0f ", (array / CLOCKS_PER_SEC) * 1000);
-	if (data == 3) printf("\x1B[34;1m%.0f ", (array / CLOCKS_PER_SEC) * 1000);
-	if (data == 4) printf("\x1B[31m%.0f ", (array / CLOCKS_PER_SEC) * 1000);
+	double time = t->finish - t->start;
+	time = (time / CLOCKS_PER_SEC) * 1000;
+	if (data == 1) printf("\x1B[33m%.0f ", time);
+	if (data == 2) printf("\x1B[35m%.0f ", time);
+	if (data == 3) printf("\x1B[34;1m%.0f ", time);
+	if (data == 4) printf("\x1B[31m%.0f ", time);
 	printf("ms\033[0m");
-	if (time < 10000) {printf("\t\t");}
-	else printf ("\t");
+	if (time < 10000) printf("\t\t");
+	else printf("\t");
 }
 
 void Benchmark(int sort_name, int* array, int data, int size) {
