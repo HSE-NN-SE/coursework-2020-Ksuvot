@@ -7,5 +7,5 @@
 ![](image/1.png)
 
 
-??????? [@Ksuvot](https://github.com/Ksuvot) - *student*  
-??????? [@Evslav](https://github.com/Evslav) - *Academic supervisor*
+👩🏻‍💻  [@Ksuvot](https://github.com/Ksuvot) - *student*  
+👨🏻‍💼 [@Evslav](https://github.com/Evslav) - *Academic supervisor*
