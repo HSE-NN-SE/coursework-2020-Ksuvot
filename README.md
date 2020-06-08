@@ -4,8 +4,7 @@
       
       
 ### Example of program execution
-![](image/1.png)
-
+![](image/1.PNG)
 
 👩🏻‍💻  [@Ksuvot](https://github.com/Ksuvot) - *student*  
 👨🏻‍💼 [@Evslav](https://github.com/Evslav) - *Academic supervisor*
