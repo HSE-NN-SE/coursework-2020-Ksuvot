@@ -1,3 +1,4 @@
+![](image/hse.png)
 # Coursework
 
 ## Theme: Time and space complexity comparison of sorting algorithms
